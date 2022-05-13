@@ -29,6 +29,8 @@ class Bank:
 
     def create_account(self, name: str) -> Account:
         """Creates a new account with the name provided"""
+        name = name.strip()
+
         if not name:
             raise ValueError("Account name cannot be None or empty")
 
@@ -45,6 +47,10 @@ class Bank:
 
     def add_funds(self, name: str, amount: int) -> None:
         """Add funds to the named account"""
+
+        if amount <= 0:
+            raise ValueError("Amount must be over 0")
+
         account = self.get_account(name)
         now = datetime.now()
         self.transactions.append(Transaction(account, now, amount))
